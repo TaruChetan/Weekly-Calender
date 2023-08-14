@@ -6,10 +6,22 @@ import "./Home.css";
 import dayjs from "dayjs";
 import {
   AM,
+  APR,
+  AUG,
+  DEC,
+  FEB,
+  JAN,
+  JUL,
+  JUNE,
+  MAR,
+  MAY,
   NEXT_WEEK,
+  NOV,
+  OCT,
   PAST,
   PM,
   PREVIOUS_WEEK,
+  SEP,
   UTC0,
   UTC0_VAL,
   UTC5,
@@ -23,20 +35,7 @@ const Home = () => {
     setcurrentWeek(weeks);
   }, []);
   const date = new Date();
-  const months = [
-    "Jan",
-    "Feb",
-    "Mar",
-    "Apr",
-    "May",
-    "Jun",
-    "Jul",
-    "Aug",
-    "Sep",
-    "Oct",
-    "Nov",
-    "Dec",
-  ];
+  const months = [JAN, FEB, MAR, APR, MAY, JUNE, JUL, AUG, SEP, OCT, NOV, DEC];
 
   const timezones = [
     {

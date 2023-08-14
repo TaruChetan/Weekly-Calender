@@ -4,12 +4,22 @@ import { CaretLeftOutlined, CaretRightOutlined } from "@ant-design/icons";
 import { Button, Checkbox, Divider, Select } from "antd";
 import "./Home.css";
 import dayjs from "dayjs";
+import {
+  AM,
+  NEXT_WEEK,
+  PAST,
+  PM,
+  PREVIOUS_WEEK,
+  UTC0,
+  UTC0_VAL,
+  UTC5,
+  UTC5_VAL,
+} from "../utils/constants";
 const Home = () => {
   const [currentWeek, setcurrentWeek] = useState([]);
   const [selectTimezone, setSelectTimezone] = useState("UTC-5");
   useEffect(() => {
     const weeks = handleWeekChange(dayjs());
-
     setcurrentWeek(weeks);
   }, []);
   const date = new Date();
@@ -30,12 +40,12 @@ const Home = () => {
 
   const timezones = [
     {
-      label: "[UTC-5] ",
-      value: "UTC-5",
+      label: UTC5,
+      value: UTC5_VAL,
     },
     {
-      label: "[UTC-0] ",
-      value: "UTC-0",
+      label: UTC0,
+      value: UTC0_VAL,
     },
   ];
   const formattedDate = `${
@@ -65,7 +75,7 @@ const Home = () => {
     const timeSlots = [];
     for (let hour = 8; hour <= 23; hour++) {
       for (let minute = 0; minute < 60; minute += 30) {
-        const amPm = hour >= 12 ? "PM" : "AM";
+        const amPm = hour >= 12 ? PM : AM;
         const displayHour = hour > 12 ? hour - 12 : hour;
         const formattedTime = `${displayHour === 0 ? 12 : displayHour}:${
           minute === 0 ? "00" : minute
@@ -85,7 +95,7 @@ const Home = () => {
         if (splitTime.length > 1) {
           const hour = splitTime[0] > 12 ? splitTime[0] - 12 : splitTime[0];
 
-          const amPm = splitTime[0] >= 12 ? "PM" : "AM";
+          const amPm = splitTime[0] >= 12 ? PM : AM;
 
           findTime.push(`${hour}:${splitTime[1]} ${amPm}`);
         }
@@ -150,13 +160,13 @@ const Home = () => {
           <div>
             <Button onClick={handlePreviousWeek} type="link" block>
               <CaretLeftOutlined />
-              previous week
+              {PREVIOUS_WEEK}
             </Button>
           </div>
           <div>{formattedDate}</div>
           <div>
             <Button onClick={handleNextWeek} type="link" block>
-              next week
+              {NEXT_WEEK}
               <CaretRightOutlined />
             </Button>
           </div>
@@ -180,11 +190,11 @@ const Home = () => {
                 <div style={{ width: "100%", height: "auto", display: "flex" }}>
                   <div style={{ width: "5%" }}>{item}</div>
                   <div style={{ width: "95%" }}>
-                    {dayjs() < dayjs(item) || currentDatecheck(item)
-                      ? (console.log(dayjs() < dayjs(item), "1st"),
-                        displayChecks(item))
-                      : (console.log(dayjs() < dayjs(item), "2nd"),
-                        (<span>Past</span>))}
+                    {dayjs() < dayjs(item) || currentDatecheck(item) ? (
+                      displayChecks(item)
+                    ) : (
+                      <span>{PAST}</span>
+                    )}
                   </div>
                 </div>
                 <Divider />
